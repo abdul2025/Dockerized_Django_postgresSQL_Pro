@@ -1,0 +1,50 @@
+# Git
+.git
+.gitignore
+
+# Documentation
+*.md
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Virtual environments
+venv/
+.venv
+env/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+
+# Docker
+Dockerfile
+docker-compose*.yml
+.dockerignore
+
+# Database
+*.sqlite3
+*.sql
+
+# Logs
+*.log
+logs/
+
+# Static/Media (collected at runtime)
+/staticfiles/
+/mediafiles/
+
+# Environment
+.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Makefile
+Makefile
