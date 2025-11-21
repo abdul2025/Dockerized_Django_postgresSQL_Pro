@@ -34,7 +34,19 @@ down:
 restart: down up
 
 logs:
+	docker-compose logs -f web
+
+logs-db:
+	docker-compose logs -f db
+
+logs-app:
+	docker-compose logs -f web db
+
+logs-all:
 	docker-compose logs -f
+
+up-live:
+	ENVIRONMENT=$(ENV) docker-compose --env-file .env.$(ENV) up
 
 shell:
 	docker-compose exec web python manage.py shell

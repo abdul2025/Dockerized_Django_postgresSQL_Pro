@@ -227,6 +227,11 @@ docker-compose logs db
 sudo chown -R $USER:$USER .
 ```
 
+
+
+** Monitoring **
+Go to https://localhost:9443
+
 ## 📖 Additional Resources
 
 - [Django Documentation](https://docs.djangoproject.com/)

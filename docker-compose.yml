@@ -12,6 +12,20 @@ services:
       - POSTGRES_PASSWORD=${DB_PASSWORD:-postgres}
     ports:
       - "${DB_PORT:-5433}:5432"
+    command:
+      - "postgres"
+      - "-c"
+      - "log_statement=all"
+      - "-c"
+      - "log_duration=on"
+      - "-c"
+      - "log_min_duration_statement=0"    # Log all queries with duration
+      - "-c"
+      - "log_line_prefix=%t [%p]: [%l-1] user=%u,db=%d,app=%a,client=%h "
+      - "-c"
+      - "log_connections=on"
+      - "-c"
+      - "log_disconnections=on"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres}"]
       interval: 10s
@@ -48,10 +62,26 @@ services:
       - app_network
     restart: unless-stopped
 
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: ${PROJECT_NAME:-myapp}_portainer
+    restart: always
+    ports:
+      - "${PORTAINER_PORT:-9443}:9443"
+      - "${PORTAINER_HTTP_PORT:-9000}:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - app_network
+
 volumes:
   postgres_data:
   static_volume:
   media_volume:
+  portainer_data:
 
 networks:
   app_network:
