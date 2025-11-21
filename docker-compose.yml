@@ -12,20 +12,6 @@ services:
       - POSTGRES_PASSWORD=${DB_PASSWORD:-postgres}
     ports:
       - "${DB_PORT:-5433}:5432"
-    command:
-      - "postgres"
-      - "-c"
-      - "log_statement=all"
-      - "-c"
-      - "log_duration=on"
-      - "-c"
-      - "log_min_duration_statement=0"    # Log all queries with duration
-      - "-c"
-      - "log_line_prefix=%t [%p]: [%l-1] user=%u,db=%d,app=%a,client=%h "
-      - "-c"
-      - "log_connections=on"
-      - "-c"
-      - "log_disconnections=on"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres}"]
       interval: 10s
@@ -33,6 +19,34 @@ services:
       retries: 5
     networks:
       - app_network
+
+  redis:
+    image: redis:7-alpine
+    container_name: ${PROJECT_NAME:-myapp}_redis
+    volumes:
+      - redis_data:/data
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app_network
+    restart: unless-stopped
+
+  redisinsight:
+    image: redis/redisinsight:latest
+    container_name: ${PROJECT_NAME:-myapp}_redisinsight
+    ports:
+      - "${REDISINSIGHT_PORT:-5540}:5540"
+    volumes:
+      - redisinsight_data:/data
+    networks:
+      - app_network
+    restart: unless-stopped
 
   web:
     build:
@@ -58,6 +72,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      redis:
+        condition: service_healthy
     networks:
       - app_network
     restart: unless-stopped
@@ -81,6 +97,8 @@ volumes:
   postgres_data:
   static_volume:
   media_volume:
+  redis_data:
+  redisinsight_data:
   portainer_data:
 
 networks:

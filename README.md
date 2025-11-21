@@ -229,8 +229,11 @@ sudo chown -R $USER:$USER .
 
 
 
-** Monitoring **
+** Monitoring Portainer Tool **
 Go to https://localhost:9443
+
+** Redis ** 
+Go to http://localhost:5540
 
 ## 📖 Additional Resources
 

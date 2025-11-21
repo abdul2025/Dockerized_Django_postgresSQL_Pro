@@ -12,3 +12,7 @@ whitenoise==6.6.0
 
 # CORS
 django-cors-headers==4.3.1
+
+# redis
+django-redis==5.4.0
+redis==5.0.8

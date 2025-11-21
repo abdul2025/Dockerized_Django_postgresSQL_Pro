@@ -73,6 +73,46 @@ DATABASES = {
     }
 }
 
+REDIS_HOST = os.environ.get("REDIS_HOST", "redis")
+REDIS_PORT = os.environ.get("REDIS_PORT", "6379")
+REDIS_URL = os.environ.get("REDIS_URL", f"redis://{REDIS_HOST}:{REDIS_PORT}")
+
+
+# Multiple cache backends for flexibility
+CACHES = {
+    # Default cache (general purpose)
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": f"{REDIS_URL}/0",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    },
+    
+    # API client cache (dedicated)
+    "api_cache": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": f"{REDIS_URL}/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        },
+        "TIMEOUT": 300,  # 5 minutes default
+    },
+    
+    # Session cache (for future use)
+    "sessions": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": f"{REDIS_URL}/2",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    },
+}
+
+
+
+
+
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
