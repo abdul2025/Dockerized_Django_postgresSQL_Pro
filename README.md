@@ -1,6 +1,6 @@
-# Django REST Framework + PostgreSQL Starter
+# Django REST Framework Starter + Postgres + Redis + Portainer
 
-A production-ready Django REST Framework template with PostgreSQL, Docker, and multi-environment configuration support.
+A production-ready Django REST Framework template with PostgreSQL, Docker, and multi-environment configuration support Plus Extra supporting tools.
 
 ## ✨ Features
 
@@ -133,28 +133,6 @@ starterPro/
 └── README.md
 ```
 
-## ⚙️ Configuration
-
-### Environment Variables
-
-Key environment variables in `.env.*` files:
-```bash
-# Django
-DJANGO_SECRET_KEY=your-secret-key-here
-DJANGO_DEBUG=True
-DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1
-
-# Database
-DB_NAME=starterdb
-DB_USER=postgres
-DB_PASSWORD=postgres
-DB_HOST=db
-DB_PORT=5432
-
-# Optional: Additional services
-REDIS_URL=redis://redis:6379/0
-CELERY_BROKER_URL=redis://redis:6379/0
-```
 
 ## 🚢 Deployment
 
@@ -228,11 +206,10 @@ sudo chown -R $USER:$USER .
 ```
 
 
-
-** Monitoring Portainer Tool **
+**Monitoring Portainer Tool**
 Go to https://localhost:9443
 
-** Redis ** 
+**Redis** 
 Go to http://localhost:5540
 
 ## 📖 Additional Resources
