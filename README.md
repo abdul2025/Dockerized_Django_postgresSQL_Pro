@@ -1,4 +1,4 @@
-# Django REST Framework Starter + Postgres + Redis + Portainer
+# Django REST Framework Starter + PostgreSQL + Redis + Portainer
 
 A production-ready Django REST Framework template with PostgreSQL, Docker, and multi-environment configuration support Plus Extra supporting tools.
 
