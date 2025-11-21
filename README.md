@@ -6,7 +6,10 @@ A production-ready Django REST Framework template with PostgreSQL, Docker, and m
 
 - 🚀 Django REST Framework pre-configured
 - 🐘 PostgreSQL database integration
+- 🔴 Redis caching with flexible configuration
 - 🐳 Docker & Docker Compose setup
+- 📊 Portainer for container monitoring
+- 🔍 RedisInsight for Redis visualization
 - 🔧 Multi-environment configuration (Dev/UAT/Prod)
 - 📦 Organized requirements structure
 - ⚡ Makefile for common tasks
